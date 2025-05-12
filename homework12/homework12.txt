@@ -1,0 +1,3 @@
+CREATE ROLE devs on cluster example_cluster -- создание роли
+grant select on *.* to devs on cluster example_cluster -- права на роль
+create user jhon identified by 'qwerty' default role devs on cluster example_cluster -- создание юзера
