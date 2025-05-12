@@ -1,0 +1,126 @@
+<clickhouse>
+    <!-- ZooKeeper configuration -->
+    <zookeeper>
+        <node index="1">
+            <host>zookeeper</host>
+            <port>2181</port>
+        </node>
+        <node index="2">
+            <host>zookeeper</host>
+            <port>2181</port>
+        </node>
+        <node index="3">
+            <host>zookeeper</host>
+            <port>2181</port>
+        </node>
+        <!-- Session and operation timeouts -->
+        <session_timeout_ms>30000</session_timeout_ms>
+        <operation_timeout_ms>10000</operation_timeout_ms>
+    </zookeeper>
+
+    <!-- Define the remote servers cluster with 3 shards and 3 replicas each -->
+    <remote_servers>
+        <example_cluster>
+            <!-- Shard 1 -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <!-- Replica 1 -->
+                <replica>
+                    <host>clickhouse1_1</host>
+                    <port>9000</port>
+                </replica>
+                <!-- Replica 2 -->
+                <replica>
+                    <host>clickhouse1_2</host>
+                    <port>9000</port>
+                </replica>
+                <!-- Replica 3 -->
+                <replica>
+                    <host>clickhouse1_3</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <!-- Shard 2 -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>clickhouse2_1</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>clickhouse2_2</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>clickhouse2_3</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <!-- Shard 3 -->
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>clickhouse3_1</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>clickhouse3_2</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>clickhouse3_3</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </example_cluster>
+        <weight_cluster>
+            <!-- Shard 1 -->
+            <shard>
+                <weight>1</weight>
+                <internal_replication>true</internal_replication>
+                <!-- Replica 1 -->
+                <replica>
+                    <host>clickhouse1_1</host>
+                    <port>9000</port>
+                </replica>
+                <!-- Replica 2 -->
+                <replica>
+                    <host>clickhouse1_2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <!-- Shard 2 -->
+            <shard>
+                <weight>2</weight>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>clickhouse2_1</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>clickhouse2_2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <!-- Shard 3 -->
+            <shard>
+                <weight>3</weight>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>clickhouse3_1</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>clickhouse3_2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </weight_cluster>
+    </remote_servers>
+    <!-- Macros for shard and replica substitution -->
+    <macros>
+        <shard>2</shard>
+        <replica>ch_r1</replica>
+    </macros>
+</clickhouse>
+
