@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+
+  clickhouse:
+    image: yandex/clickhouse-server:latest
+    ports:
+      - "8123:8123"  # HTTP
+      - "9000:9000"   # TCP
+      - "9363:9363"   # Добавленный порт для общения
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    networks:
+      - monitoring
+
+  graphite:
+    image: graphiteapp/graphite-statsd
+    ports:
+      - "8080:80"  # Доступ к интерфейсу Graphite
+    networks:
+      - monitoring
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Подключение конфигурационного файла
+    ports:
+      - "9090:9090"  # Доступ к интерфейсу Prometheus
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+
+volumes:
+  clickhouse-data:

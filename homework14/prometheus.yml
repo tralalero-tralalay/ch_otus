@@ -1,0 +1,8 @@
+# prometheus.yml
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'clickhouse'
+    static_configs:
+      - targets: ['homework14-clickhouse-1:9363']
